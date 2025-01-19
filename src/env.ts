@@ -9,7 +9,7 @@ const envSchema = z.object({
 	CLOUDFLARE_PUBLIC_URL: z.string().url(),
 	CLOUDFLARE_ACCOUNT_ID: z.string(),
 	CLOUDFLARE_ACCESS_KEY_ID: z.string(),
-	CLOUDFLARE_SECRET_ACCESS_KEY_ID: z.string()
+	CLOUDFLARE_SECRET_ACCESS_KEY: z.string()
 })
 
 export type Env = z.infer<typeof envSchema>
