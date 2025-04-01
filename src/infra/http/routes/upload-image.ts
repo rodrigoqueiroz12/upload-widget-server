@@ -15,7 +15,11 @@ export const uploadImageRoute: FastifyPluginAsyncZod = async (
 				tags: ['uploads'],
 				consumes: ['multipart/form-data'],
 				response: {
-					201: z.null().describe('Image uploaded'),
+					201: z
+						.object({
+							url: z.string()
+						})
+						.describe('Image uploaded'),
 					409: z
 						.object({ message: z.string() })
 						.describe('Upload already exists.')
@@ -46,7 +50,9 @@ export const uploadImageRoute: FastifyPluginAsyncZod = async (
 			if (isRight(result)) {
 				console.log(unwrapEither(result))
 
-				return reply.status(201).send()
+				return reply.status(201).send({
+					url: result.right.url
+				})
 			}
 
 			const error = unwrapEither(result)
